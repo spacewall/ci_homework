@@ -17,17 +17,19 @@ from dotenv import dotenv_values
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+SECRETS = dotenv_values('.env')
+
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'oaamn^2=a4%p57jkt%&6rcird)lb6-#fo)^6rram7d+_@=8e38'
+SECRET_KEY = SECRETS['SECRET_KEY']
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = SECRETS['DEBUG']
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [(SECRETS['ALLOWED_HOSTS'])]
 
 
 # Application definition
@@ -81,12 +83,12 @@ WSGI_APPLICATION = 'django_testing.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'netology_django_testing',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-        'USER': 'postgres',
-        'PASSWORD': dotenv_values('.env')['password']
+        'ENGINE': SECRETS['DB_ENGINE'],
+        'NAME': SECRETS['DB_NAME'],
+        'HOST': SECRETS['DB_HOST'],
+        'PORT': SECRETS['DB_PORT'],
+        'USER': SECRETS['DB_USER'],
+        'PASSWORD': SECRETS['DB_PASSWORD']
     }
 }
 
@@ -128,3 +130,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = '/'
+
+DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
