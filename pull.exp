@@ -1,0 +1,5 @@
+#!bin/bash/expect
+spawn /home/spacewall/ci_homework/deploy.sh
+expect "password"
+send -- "123"
+expect eof
