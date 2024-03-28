@@ -34,8 +34,6 @@ jobs:
           --health-retries 5
     strategy:
       max-parallel: 4
-      matrix:
-        python-version: [3.9, 3.10. 3.11]
 
     steps:
       - name: Check repo
@@ -44,7 +42,7 @@ jobs:
       - name: Python downloading
         uses: actions/setup-python@v5
         with:
-          python-version: ${{ matrix.python-version }}
+          python-version: '3.11'
 
       - name: Requirements downloading
         run: pip install -r requirements.txt
