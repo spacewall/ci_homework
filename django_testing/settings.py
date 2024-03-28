@@ -11,13 +11,28 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 from dotenv import dotenv_values
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-SECRETS = dotenv_values('.env')
+if os.path.exists('.env'):
+    SECRETS = dotenv_values('.env')
+
+else:
+    SECRETS = {
+        'SECRET_KEY': os.getenv('SECRET_KEY'),
+        'DEBUG': os.getenv('DEBUG', False),
+        'ALLOWED_HOSTS': os.getenv('ALLOWED_HOSTS'),
+        'DB_ENGINE': 'django.db.backends.postgresql',
+        'DB_NAME': os.getenv('DB_NAME'),
+        'DB_HOST': os.getenv('DB_HOST'),
+        'DB_PORT': os.getenv('DB_PORT'),
+        'DB_USER': os.getenv('DB_USER'),
+        'DB_PASSWORD': os.getenv('DB_PASSWORD')
+    }
 
 
 # Quick-start development settings - unsuitable for production
